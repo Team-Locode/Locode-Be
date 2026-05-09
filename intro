@@ -1,0 +1,75 @@
+플라워토브 서비스 백엔드 & 데이터 분석 기획서
+1. 프로젝트 개요
+프로젝트명: 꽃집 감성 추적 기반 마케팅 지원 서비스
+프로젝트 개요: 사용자가 선택한 꽃 색상, 포장지 색상, 감성 키워드 데이터를 수집하여 어떤 분위기의 꽃다발이 수요가 있는지 알아냄.
+핵심 가치: 사용자에게 '꽃다발 만들기' 경험을 제공하고, 선택 과정에서 발생하는 데이터를 수집하여 소상공인의 마케팅 의사결정을 돕는다.
+백엔드 역할: 데이터 수집(Logging), 데이터베이스 관리(Storage), 사장님용 통계 제공(Analytics).
+
+
+3. 데이터베이스 설계 (ERD)
+1. 테이블 설계 (Schema)
+총 4개의 테이블로 구성하며, 각 테이블은 분석 목적에 맞게 정규화되었습니다.
+(1) flowers (꽃 마스터 정보)
+꽃의 종류와 색상 정보를 관리합니다.
+id (INT, PK, AI): 꽃 고유 번호
+name (VARCHAR): 꽃 이름 (예: 장미, 튤립)
+color_name (VARCHAR): 색상 명칭 (예: 핑크, 화이트)
+color_hex (VARCHAR): 시각화용 색상 코드 (예: #FFC0CB)
+(2) papers (포장지 마스터 정보)
+포장지 종류와 색상 정보를 관리합니다.
+id (INT, PK, AI): 포장지 고유 번호
+name (VARCHAR): 포장지 종류 (예: 크라프트지, 부직포)
+color_hex (VARCHAR): 포장지 색상 코드
+
+
+(3) purposes (꽃다발 선물 목적 정보)
+id(INT, PK, AI)
+category: "졸업", "생일", "기념일", "어버이날", "프로포즈", "응원/격려"
+
+(4) bouquets (최종 완성 꽃다발 - 메인 분석 테이블)
+사용자가 "완성" 버튼을 눌렀을 때의 최종 결과물입니다.
+id (INT, PK, AI): 주문 고유 번호
+session_id (VARCHAR): 사용자 식별자 (A/B 테스트나 중복 방지용)
+paper_id (INT, FK): 선택한 포장지 ID (papers.id 참조)
+purposes_id (INT ,FK): 선물 목적 ID (졸업, 생일, 기념일 등)
+(5) bouquet_details (꽃다발 구성 상세)
+한 다발에 여러 종류의 꽃이 들어가므로, 1:N 관계로 설계하여 분석의 유연성을 높입니다.
+id (INT, PK, AI)
+bouquet_id (INT, FK): 어느 꽃다발에 속하는지 (bouquets.id 참조)
+flower_id (INT, FK): 어떤 꽃이 쓰였는지 (flowers.id 참조)
+(6) keywords (감성 키워드 로그)
+사용자가 선택한 감성 태그를 저장합니다.
+id (INT, PK, AI)
+bouquet_id (INT, FK): 어느 꽃다발에 대한 감성인지 (bouquets.id 참조)
+keyword (VARCHAR): 선택한 키워드 (예: "감성적", "빈티지")
+
+4. API 명세 (Front-end 협업용)
+[POST] /api/complete
+사용자가 '완성' 버튼을 클릭했을 때 호출하는 API입니다.
+Request Body (예시):
+JSON
+{
+  "session_id": “flower",
+  "selection": {
+    "flower_ids": [1, 5, 12],      // 선택한 꽃 ID 배열
+    "flower_colors": ["#FFC0CB", "#FFFFFF"], // 색상 코드 분석용
+    "paper_id": 3,                 // 포장지 ID
+    "paper_color": "#D2B48C",      // 포장지 색상
+    "keywords": ["감성적", "화려한"]  // 선택된 감성 키워드
+    “purposes”: “1” //선물 목적
+  },
+  "user_message": "생일 선물용입니다. 예쁘게 만들어주세요~"
+}
+
+Response: 200 OK / {"message": "데이터가 성공적으로 분석 서버에 저장되었습니다."}
+
+5. 데이터 분석 및 인사이트 도출 계획
+수집된 Raw Data를 가공하여 사장님께 제공할 3대 지표입니다.
+감성 팔레트 (Color Analysis):
+가장 많이 선택된 꽃 색상과 포장지 색상의 조합(Pair) 통계.
+예: "이번 주 고객들은 연분홍 꽃에 크라프트 포장지를 가장 선호했습니다."
+키워드-색상 매핑 (Context Analysis):
+사용자가 선택한 '감성 키워드'와 '실제 색상' 간의 상관관계 분석.
+예: "'화려한'을 고른 고객은 빨간색 꽃을 선택할 확률이 85%입니다."
+
+
