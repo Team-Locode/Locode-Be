@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/bouquets")
 @RequiredArgsConstructor
-public class BouquetController {
+public class BouquetController implements BouquetControllerDocs {
 
     private final BouquetService bouquetService;
 

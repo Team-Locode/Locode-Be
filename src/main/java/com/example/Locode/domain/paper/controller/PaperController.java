@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/papers")
-public class PaperController {
+public class PaperController implements PaperControllerDocs {
 
     @GetMapping("/styles")
     public ResponseEntity<List<Map<String, String>>> getStyles() {

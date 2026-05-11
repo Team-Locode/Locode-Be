@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/flowers")
-public class FlowerController {
+public class FlowerController implements FlowerControllerDocs {
 
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> getFlowers() {
