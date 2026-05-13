@@ -10,7 +10,7 @@ import static com.example.Locode.domain.flower.enums.FlowerColor.*;
 @Getter
 @RequiredArgsConstructor
 public enum FlowerType {
-    ROSE       ("장미",       List.of(RED, BLUE)),
+    ROSE       ("장미",       List.of(RED, BLUE, BLACK, WHITE)),
     GERBERA    ("게베라",     List.of(YELLOW, PINK, BLUE)),
     POMPON     ("폼폼국화",   List.of(YELLOW)),
     CARNATION  ("카네이션",   List.of(PINK)),
