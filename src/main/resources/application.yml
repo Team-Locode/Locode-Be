@@ -1,8 +1,8 @@
 spring:
-  profiles:
-    active: prod
-  application:
-    name: Locode
-
-server:
-  port: 8080
+  datasource:
+    url: jdbc:mysql://db:3306/locode-db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
