@@ -75,7 +75,7 @@ public class BouquetService {
 
         long maxFreq = Collections.max(freq.values());
 
-        if (colors.size() >= 3 && maxFreq == 1) return List.of("colorful");
+        if (colors.size() >= 3 && maxFreq == 1) return List.of("컬러풀");
 
         return freq.entrySet().stream()
                 .filter(e -> e.getValue() == maxFreq)
