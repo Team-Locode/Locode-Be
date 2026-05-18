@@ -6,5 +6,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  server:
-    forward-headers-strategy: framework
+
+server:
+  forward-headers-strategy: framework
