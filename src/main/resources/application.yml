@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://db:3306/locode-db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: ${DB_PASSWORD}
+    password: goodday*0722
   jpa:
     hibernate:
       ddl-auto: update
