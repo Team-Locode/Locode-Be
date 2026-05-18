@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum FlowerColor {
-    RED("빨강"),
-    BLUE("파랑"),
-    YELLOW("노랑"),
-    PINK("분홍"),
-    PURPLE("보라"),
-    BLACK("검정"),
-    WHITE("하양");
+    RED("레드"),
+    BLUE("블루"),
+    YELLOW("옐로우"),
+    PINK("핑크"),
+    PURPLE("퍼플"),
+    BLACK("블랙"),
+    WHITE("화이트");
 
     private final String koreanName;
 }
