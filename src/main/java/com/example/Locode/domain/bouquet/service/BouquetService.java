@@ -50,7 +50,6 @@ public class BouquetService {
     private BouquetResponse toResponse(Bouquet bouquet, List<BouquetDetail> details) {
         List<String> flowers = details.stream()
                 .map(d -> d.getFlowerType().getKoreanName() + "(" + d.getFlowerColor().getKoreanName() + ")")
-                .distinct()
                 .toList();
 
         List<FlowerColor> colors = details.stream()
