@@ -15,7 +15,6 @@ public class CorsConfig implements WebMvcConfigurer {
                         "https://lotowb.com",
                         "https://www.lotowb.com"
                 )
-                .allowedOriginPatterns("https://*.vercel.app")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .allowCredentials(true);
