@@ -14,7 +14,6 @@ public enum FlowerType {
     GERBERA    ("게베라",     List.of(YELLOW, PINK, BLUE)),
     POMPON     ("폼폼국화",   List.of(YELLOW)),
     CARNATION  ("카네이션",   List.of(PINK)),
-    TULIP  ("튤립",   List.of(RED, YELLOW)),
     LISIANTHUS ("리시안셔스", List.of(PINK)),
     LAVENDER   ("라벤더",     List.of(PURPLE));
 
